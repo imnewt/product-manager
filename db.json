@@ -1,0 +1,20 @@
+{
+    "products": [
+        {
+            "id": "1", 
+            "name": "ống nước", 
+            "quantity": "20",
+            "pricein": "20000",
+            "priceout": "30000",
+            "imageUrl": "../assets/images/ong-nuoc.jpg"
+        }, 
+        {
+            "id": "2", 
+            "name": "phụ kiện", 
+            "quantity": "5",
+            "pricein": "12000",
+            "priceout": "25000",
+            "imageUrl": "../assets/images/phu-kien.jpg"
+        } 
+    ]
+}
