@@ -7,7 +7,9 @@ import Ionicons from "react-native-vector-icons/Ionicons"
 import ProductListScreen from "./screens/ProductList"
 import CreateNewScreen from "./screens/CreateNew"
 import ProductDetailScreen from "./screens/ProductDetail"
-import ExampleAppScreen from "./screens/ExampleApp"
+import SettingsScreen from "./screens/Settings"
+import CameraScreen from "./screens/Camera"
+
 console.disableYellowBox = true;
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Dimensions } from 'react-native'; 
@@ -36,31 +38,31 @@ const ProductStackScreen = () => {
   )
 }
 
-// const CreateNewStack = createStackNavigator();
-// const CreateNewStackScreen = () => {
-//   return (
-//     <CreateNewStack.Navigator 
-//       initialRouteName="ExampleApp" 
-//       screenOptions={{
-//         headerTitleAlign: "center",
-//         headerTitleStyle: {
-//           fontWeight: "bold",
-//           fontSize: 20,
-//           textTransform: "uppercase"
-//         }
-//       }}
-//     >
-//       <CreateNewStack.Screen name="ExampleApp" component={ExampleAppScreen} options={{ headerTitle:"Example App" }}/>
-//       <CreateNewStack.Screen name="CreateNew" component={CreateNewScreen} options={{ headerTitle:"Thêm Sản Phẩm Mới" }}/>
-//     </CreateNewStack.Navigator>
-//   )
-// }
+const SettingsStack = createStackNavigator();
+const SettingsStackScreen = () => {
+  return (
+    <SettingsStack.Navigator 
+      initialRouteName="Settings" 
+      screenOptions={{
+        headerTitleAlign: "center",
+        headerTitleStyle: {
+          fontWeight: "bold",
+          fontSize: 20,
+          textTransform: "uppercase"
+        },
+        tabBarVisible: false
+      }}
+    >
+      <SettingsStack.Screen name="Settings" component={SettingsScreen} options={{headerShown:false}}/>
+    </SettingsStack.Navigator>
+  )
+}
 
 const TestCameraStack = createStackNavigator();
 const TestCameraStackScreen = () => {
   return (
     <TestCameraStack.Navigator 
-      initialRouteName="ExampleApp" 
+      initialRouteName="Camera" 
       screenOptions={{
         headerTitleAlign: "center",
         headerTitleStyle: {
@@ -70,7 +72,7 @@ const TestCameraStackScreen = () => {
         }
       }}
     >
-      <TestCameraStack.Screen name="ExampleApp" component={ExampleAppScreen}/>
+      <TestCameraStack.Screen name="Camera" component={CameraScreen} options={{headerShown:false}}/>
     </TestCameraStack.Navigator>
   )
 }
@@ -86,7 +88,7 @@ const Main = () => {
             iconName = "ios-list";
           } 
           else {
-            iconName = "ios-camera";
+            iconName = "ios-cog";
           }
           return <Ionicons name={iconName} size={25} color={color} />
         }
@@ -103,8 +105,7 @@ const Main = () => {
       }}
     >
       <Tab.Screen name="Quản Lý" component={ProductStackScreen}/>
-      {/* <Tab.Screen name="Thêm Mới" component={CreateNewStackScreen}/> */}
-      <Tab.Screen name="Test Camera" component={TestCameraStackScreen}/>
+      <Tab.Screen name="Cài Đặt" component={SettingsStackScreen}/>
     </Tab.Navigator>
   )
 }
@@ -115,6 +116,7 @@ export default function App() {
     <NavigationContainer>
       <RootStack.Navigator initialRouteName="Main">
         <RootStack.Screen name="Main" component={Main} options={{headerShown:false}}/>
+        <RootStack.Screen name="TestCamera" component={TestCameraStackScreen} options={{headerShown:false}}/>
       </RootStack.Navigator>
     </NavigationContainer>
   )
