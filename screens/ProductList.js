@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react"
-import { View, FlatList, StyleSheet,TouchableOpacity, Text } from "react-native"
+import React, { useEffect, useState, useRef } from "react"
+import { View, FlatList, TouchableOpacity } from "react-native"
 import ProductItem from "../components/ProductItem"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import EStyleSheet from "react-native-extended-stylesheet"
-import { RNCamera } from 'react-native-camera';
+import Ionicons from "react-native-vector-icons/Ionicons"
+import { useNavigation } from "@react-navigation/native"
+import { useDidMountEffect } from "../utils"
 // DEFAULT DATA
 const temp = [
     {
@@ -40,13 +42,19 @@ const temp = [
     }
 ]
 
-const ProductList = () => {
+const ProductList = (props) => {
+    const navigation = useNavigation();
     const [products,setProducts] = useState([]);
-    var [camera, setCamera] = useState(null);
+    
     useEffect(() => {
         // storeData(temp);
         getData();
-    },[products])
+    },[])
+
+    useDidMountEffect(() => {
+        const { hasNew } = props.route.params;
+        hasNew && getData();
+    },[props.route.params])
 
     // SAVE DATA TO STORAGE
     const storeData = async (value) => {
@@ -68,13 +76,6 @@ const ProductList = () => {
         }
     }
 
-    const takePicture = async () => {
-        if (camera) {
-          const options = { quality: 0.5, base64: true };
-          const data = await camera.takePictureAsync(options);
-          console.log(data.uri);
-        }
-    };
     return (
         <View style={styles.container}>
             <FlatList
@@ -82,59 +83,37 @@ const ProductList = () => {
                 data={products}
                 renderItem={({ item }) => <ProductItem product={item}/>}
                 keyExtractor={(item) => `${item.id}`}
-                contentContainerStyle={{ paddingVertical: 5 }}
+                contentContainerStyle={{ padding: 16, paddingBottom: 0 }}
             />
-            <RNCamera
-                ref={ref => {
-                    camera = ref;
-                }}
-                style={styles.preview}
-                type={RNCamera.Constants.Type.back}
-                flashMode={RNCamera.Constants.FlashMode.on}
-                androidCameraPermissionOptions={{
-                    title: 'Permission to use camera',
-                    message: 'We need your permission to use your camera',
-                    buttonPositive: 'Ok',
-                    buttonNegative: 'Cancel',
-                }}
-                androidRecordAudioPermissionOptions={{
-                    title: 'Permission to use audio recording',
-                    message: 'We need your permission to use your audio',
-                    buttonPositive: 'Ok',
-                    buttonNegative: 'Cancel',
-                }}
-                onGoogleVisionBarcodesDetected={({ barcodes }) => {
-                    console.log(barcodes);
-                }}
-            />
-            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                <TouchableOpacity onPress={takePicture} style={styles.capture}>
-                    <Text style={{ fontSize: 14 }}> SNAP </Text>
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+                style={styles.btn}
+                activeOpacity={.8}
+                onPress={() => navigation.navigate("CreateNew")}
+            >
+                <Ionicons name="ios-add" color="white" size={30}/>
+            </TouchableOpacity>
         </View>
     )
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#F0F2EF"
     },
-    preview: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-      },
-      capture: {
-        flex: 0,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
-        alignSelf: 'center',
-        margin: 20,
-      },
+    btn: {
+        position: "absolute",
+        backgroundColor:"#00A878",
+        borderRadius: 99,
+        width: "18rem",
+        height: "18rem",
+        justifyContent: "center",
+        alignItems: "center",
+        bottom: "4rem",
+        right: "4rem",
+        opacity: 0.8,
+        elevation: 5
+      }
 })
 
 export default ProductList;

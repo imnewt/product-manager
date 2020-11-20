@@ -1,7 +1,7 @@
-'use strict';
 import React, { PureComponent } from 'react';
-import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+// import Ionicons from "react-native-vector-icons/Ionicons"
 
 export default class ExampleApp extends PureComponent {
   render() {
@@ -32,7 +32,8 @@ export default class ExampleApp extends PureComponent {
         />
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
           <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
-            <Text style={{ fontSize: 14 }}> SNAP </Text>
+              <Text style={{ fontSize: 14 }}> SNAP </Text>
+                {/* <Ionicons name="ios-ionics" color="white" size={30}/> */}
           </TouchableOpacity>
         </View>
       </View>
@@ -52,12 +53,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'black',
+    // backgroundColor: 'black',
   },
   preview: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    // justifyContent: 'flex-end',
+    // alignItems: 'center',
   },
   capture: {
     flex: 0,

@@ -30,15 +30,36 @@ const ProductStackScreen = () => {
       }}
     >
       <ProductStack.Screen name="ProductList" component={ProductListScreen} options={{ headerTitle:"Quản Lý Sản Phẩm" }}/>
+      <ProductStack.Screen name="CreateNew" component={CreateNewScreen} options={{ headerTitle:"Thêm Sản Phẩm Mới" }}/>
       <ProductStack.Screen name="ProductDetail" component={ProductDetailScreen} options={{ headerTitle:"Chi Tiết Sản Phẩm" }}/>
     </ProductStack.Navigator>
   )
 }
 
-const CreateNewStack = createStackNavigator();
-const CreateNewStackScreen = () => {
+// const CreateNewStack = createStackNavigator();
+// const CreateNewStackScreen = () => {
+//   return (
+//     <CreateNewStack.Navigator 
+//       initialRouteName="ExampleApp" 
+//       screenOptions={{
+//         headerTitleAlign: "center",
+//         headerTitleStyle: {
+//           fontWeight: "bold",
+//           fontSize: 20,
+//           textTransform: "uppercase"
+//         }
+//       }}
+//     >
+//       <CreateNewStack.Screen name="ExampleApp" component={ExampleAppScreen} options={{ headerTitle:"Example App" }}/>
+//       <CreateNewStack.Screen name="CreateNew" component={CreateNewScreen} options={{ headerTitle:"Thêm Sản Phẩm Mới" }}/>
+//     </CreateNewStack.Navigator>
+//   )
+// }
+
+const TestCameraStack = createStackNavigator();
+const TestCameraStackScreen = () => {
   return (
-    <CreateNewStack.Navigator 
+    <TestCameraStack.Navigator 
       initialRouteName="ExampleApp" 
       screenOptions={{
         headerTitleAlign: "center",
@@ -49,9 +70,8 @@ const CreateNewStackScreen = () => {
         }
       }}
     >
-      <CreateNewStack.Screen name="ExampleApp" component={ExampleAppScreen} options={{ headerTitle:"Example App" }}/>
-      <CreateNewStack.Screen name="CreateNew" component={CreateNewScreen} options={{ headerTitle:"Thêm Sản Phẩm Mới" }}/>
-    </CreateNewStack.Navigator>
+      <TestCameraStack.Screen name="ExampleApp" component={ExampleAppScreen}/>
+    </TestCameraStack.Navigator>
   )
 }
 
@@ -62,11 +82,11 @@ const Main = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color }) => {
           let iconName;
-          if (route.name === "Thêm Mới") {
-            iconName = "ios-add-circle";
+          if (route.name === "Quản Lý") {
+            iconName = "ios-list";
           } 
           else {
-            iconName = "ios-list";
+            iconName = "ios-camera";
           }
           return <Ionicons name={iconName} size={25} color={color} />
         }
@@ -82,9 +102,9 @@ const Main = () => {
         keyboardHidesTabBar: true
       }}
     >
-      <Tab.Screen name="QL" component={ProductStackScreen}/>
-      <Tab.Screen name="Thêm Mới" component={CreateNewStackScreen}/>
       <Tab.Screen name="Quản Lý" component={ProductStackScreen}/>
+      {/* <Tab.Screen name="Thêm Mới" component={CreateNewStackScreen}/> */}
+      <Tab.Screen name="Test Camera" component={TestCameraStackScreen}/>
     </Tab.Navigator>
   )
 }

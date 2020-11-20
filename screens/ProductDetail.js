@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Text, FlatList, StyleSheet } from "react-native"
+import { View, Text, FlatList } from "react-native"
 import { SliderBox } from "react-native-image-slider-box";
 import EStyleSheet from "react-native-extended-stylesheet"
 
@@ -42,7 +42,8 @@ const ProductDetail = (props) => {
                     </View>
                 )}
                 keyExtractor={(item) => `${item}`}
-                style={{ marginTop: 20 }}
+                // style={{ marginTop: 20 }}
+                contentContainerStyle={{ padding: 16 }}
             />
             
         </View>
@@ -51,7 +52,7 @@ const ProductDetail = (props) => {
 
 const styles = EStyleSheet.create({
     block: {
-        width: "90%",
+        width: "100%",
         marginBottom: 0,
         alignSelf: "center",
         flexDirection:"row",

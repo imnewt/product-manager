@@ -125,7 +125,7 @@ const CreateNew = () => {
     
     const backToHome = () => {
         setVisibleSuccess(false);
-        // navigation.goBack();
+        navigation.navigate("ProductList", { hasNew: true });
     }
 
     // TAKE IMAGE FROM CAMERA OPTION
@@ -386,6 +386,7 @@ const CreateNew = () => {
                         style={{backgroundColor:"#ddd", width:"95%", marginVertical: 5, borderRadius: 5 }}
                         value={newAttr}
                         placeholder="Tên thuộc tính"
+                        placeholderTextColor="#000"
                         onChangeText={val => setNewAttr(val)}
                     />
                     { addErr ? <Text style={[styles.error, { marginVertical: 5 }]}>Bạn chưa nhập tên thuộc tính!!!</Text> : null }
@@ -413,7 +414,7 @@ const CreateNew = () => {
                     </TouchableOpacity>
                     <View>
                         <TouchableOpacity 
-                            style={styles.imgBtn}
+                            style={[styles.imgBtn, { marginTop: 0}]}
                             activeOpacity={.8}
                             onPress={() => showModal(2)}
                         >
@@ -430,7 +431,7 @@ const CreateNew = () => {
                 </View>
                 <View style={{ flexDirection:"row" }}>
                     <TouchableOpacity
-                        style={[styles.imgBtn, {}]}
+                        style={[styles.imgBtn, { marginLeft: 0 }]}
                         activeOpacity={.8}
                         onPress={() => showModal(4)}
                     >
@@ -492,26 +493,31 @@ const CreateNew = () => {
 const styles = EStyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        backgroundColor: "#F0F2EF"
+        // alignItems: "center",
+        backgroundColor: "#F0F2EF",
+        // padding: 16
     },
     scroll: {
-        paddingVertical: "4rem"
+        padding: 16
+        // width: "100%"
     },
     imgCtn: {
         width: "100%",
         height: "100%"
     },
     imgBtnl: {
-        width: "53rem"
+        width: "60rem",
+        marginLeft: 0,
+        marginTop: 0
     },
     imgBtn: {
-        width: "24rem",
+        width: "28rem",
         aspectRatio: 1/1,
         justifyContent: "center",
         alignItems: "center",
-        margin: "2.5rem",
+        margin: "2rem",
         backgroundColor: "#fff",
+        borderRadius: 5,
         shadowColor: "#000",
         shadowOpacity: 0.3,
         shadowRadius: 10,
@@ -527,20 +533,20 @@ const styles = EStyleSheet.create({
     },
     infoText: {
         fontWeight: "bold",
-        fontSize: "4.5rem"
+        fontSize: "4.5rem",
+        marginBottom: "2rem"
     },
     input: {
         backgroundColor: "#fff",
         height: "13rem",
         width: "100%",
-        marginTop: "2rem",
         padding: "2rem",
         borderRadius: 5,
         shadowColor: "#000",
         shadowOpacity: 0.3,
         shadowRadius: 10,
         shadowOffset: { width: 0, height: 0 },
-        elevation: 2
+        elevation: 1,
     },
     submitBtn: {
         marginTop: "3rem",
