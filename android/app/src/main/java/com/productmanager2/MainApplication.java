@@ -1,20 +1,31 @@
 package com.productmanager2;
 
+import com.productmanager2.generated.BasePackageList;
+
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.imageeditor.ImageEditorPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+// import com.projectseptember.RNGL.RNGLPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import org.reactnative.camera.RNCameraPackage;
 // import com.rnfs.RNFSPackage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Arrays;
+ 
+import org.unimodules.adapters.react.ModuleRegistryAdapter;
+import org.unimodules.adapters.react.ReactModuleRegistryProvider;
+import org.unimodules.core.interfaces.SingletonModule;
 
 public class MainApplication extends Application implements ReactApplication {
+
+  private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
@@ -29,10 +40,16 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
-          //packages.add(new MainReactPackage());
+          
+          //packages.add(new MainReactPackage(),
+            // new ImageEditorPackage());
           //packages.add(new RNFSPackage());
           //packages.add(new RNCameraPackage());
-          
+          // packages.add(new RNGLPackage());
+          List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
+            new ModuleRegistryAdapter(mModuleRegistryProvider)
+          );
+          packages.addAll(unimodules);
           return packages;
         }
 

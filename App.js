@@ -7,8 +7,12 @@ import Ionicons from "react-native-vector-icons/Ionicons"
 import ProductListScreen from "./screens/ProductList"
 import CreateNewScreen from "./screens/CreateNew"
 import ProductDetailScreen from "./screens/ProductDetail"
-import SettingsScreen from "./screens/Settings"
+
 import CameraScreen from "./screens/Camera"
+import EditScreen from "./screens/Edit"
+
+import SettingsScreen from "./screens/Settings"
+
 
 console.disableYellowBox = true;
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -73,6 +77,7 @@ const TestCameraStackScreen = () => {
       }}
     >
       <TestCameraStack.Screen name="Camera" component={CameraScreen} options={{headerShown:false}}/>
+      <TestCameraStack.Screen name="Edit" component={EditScreen} options={{headerShown:false}}/>
     </TestCameraStack.Navigator>
   )
 }

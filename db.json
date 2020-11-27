@@ -14,7 +14,9 @@
             "quantity": "5",
             "pricein": "12000",
             "priceout": "25000",
-            "imageUrl": "../assets/images/phu-kien.jpg"
+            "imageUrl": "../assets/images/phu-kien.jpg",
+            "tét": "require(\"../assets/images/phu-kien.jpg\")"
+
         } 
     ]
 }
