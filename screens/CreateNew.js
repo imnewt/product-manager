@@ -7,8 +7,9 @@ import { useNavigation } from "@react-navigation/native"
 import { Overlay } from "react-native-elements"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import EStyleSheet from "react-native-extended-stylesheet"
+import { useDidMountEffect } from "../utils"
 
-const CreateNew = () => {
+const CreateNew = (props) => {
     const navigation = useNavigation();
     const [products,setProducts] = useState([]);
 
@@ -75,6 +76,32 @@ const CreateNew = () => {
     const [hasErr, setHasErr] = useState(false);
     const [addErr, setAddErr] = useState(false);
 
+    // useDidMountEffect(() => {
+    //     const { url, imgId } = props.route.params;
+    //     if (url) {
+    //         switch (imgId) {
+    //             case "img1":
+    //                 setImg1(url);
+    //                 break;
+    //             case "img2":
+    //                 setImg1(url);
+    //                 break;
+    //             case "img3":
+    //                 setImg1(url);
+    //                 break;
+    //             case "img4":
+    //                 setImg1(url);
+    //                 break;
+    //             case "img5":
+    //                 setImg1(url);
+    //                 break;
+    //             case "img6":
+    //                 setImg1(url);
+    //                 break;
+    //         }
+    //     }
+    // },[props.route.params])
+
     // CHANGE VALUE IN INPUT
     const changeValue = (id, val) => {
         var clonePropss = propss;
@@ -116,6 +143,10 @@ const CreateNew = () => {
         setVisibleImg(false);
         setAddErr(false);
     };
+
+    // const goToCamera = (numImg) => {
+    //     navigation.navigate("TestCamera", { imgId: numImg })
+    // }
 
     // SHOW MODAL TO CHOOSE WAY TO GET IMAGE
     const showModal = (num) => {
@@ -420,7 +451,7 @@ const CreateNew = () => {
                         >
                             {img2 !== "" ? <Image source={{ uri: img2 }} style={styles.imgCtn}/> : <Text style={styles.plus}>+</Text>}
                         </TouchableOpacity>
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             style={styles.imgBtn}
                             activeOpacity={.8}
                             onPress={() => showModal(3)}

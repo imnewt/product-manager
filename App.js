@@ -37,6 +37,10 @@ const ProductStackScreen = () => {
     >
       <ProductStack.Screen name="ProductList" component={ProductListScreen} options={{ headerTitle:"Quản Lý Sản Phẩm" }}/>
       <ProductStack.Screen name="CreateNew" component={CreateNewScreen} options={{ headerTitle:"Thêm Sản Phẩm Mới" }}/>
+      {/* <ProductStack.Screen name="Camera" component={CameraScreen} options={{headerShown:false}}/>
+      <ProductStack.Screen name="Edit" component={EditScreen} options={{headerShown:false}}/> */}
+      {/* <ProductStack.Screen name="TestCamera" component={TestCameraStackScreen} options={{headerShown:false}}/> */}
+
       <ProductStack.Screen name="ProductDetail" component={ProductDetailScreen} options={{ headerTitle:"Chi Tiết Sản Phẩm" }}/>
     </ProductStack.Navigator>
   )

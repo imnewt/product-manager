@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+// import com.reactnativecommunity.slider.ReactSliderPackage;
 // import com.reactnativecommunity.imageeditor.ImageEditorPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -33,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           
           //packages.add(new MainReactPackage(),
+            // new ReactSliderPackage(),
             // new ImageEditorPackage());
           //packages.add(new RNFSPackage());
           //packages.add(new RNCameraPackage());

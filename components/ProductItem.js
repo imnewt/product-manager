@@ -30,7 +30,6 @@ const styles = EStyleSheet.create({
         flexDirection: "row",
         width: "100%",
         marginBottom: 12,
-        // marginVertical: "1.5rem",
         borderRadius: 5,
         overflow: "hidden",
         shadowColor: "#000",

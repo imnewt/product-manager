@@ -8,10 +8,11 @@ import EStyleSheet from "react-native-extended-stylesheet"
 import { useNavigation } from "@react-navigation/native"
 import ViewShot from "react-native-view-shot";
 import { ScrollView } from 'react-native-gesture-handler';
+import Slider from "react-native-slider";
 
 const imagePath = "https://www.wallpaperup.com/uploads/wallpapers/2013/12/16/197007/dcb22678e4bef0177420aa22196d540f.jpg"
 
-const Camera = () => {
+const Camera = (props) => {
     const navigation = useNavigation();
 
     // DEVICE DIMENSIONS
@@ -40,8 +41,14 @@ const Camera = () => {
     const [overlayColors,setOverlayColors] = useState(["white", "red", "green", "blue", "pink", "yellow", "brown"])
     const [cNum,setCNum] = useState(0);
 
+    // FILTER OPACITY
+    const [opacity,setOpacity] = useState(0.12);
+
     // OVERLAY FILTER VISIBLE
     const [filterVisible,setFilterVisible] = useState(false);
+
+    // SLIDER VALUE
+    const [sliderValue, setSliderValue] = useState(0.15);
 
     // FRAME STYLE
     const customImageStyle = {
@@ -96,6 +103,12 @@ const Camera = () => {
         setFNum(fNum === frameHeight.length - 1 ? 0 : fNum + 1);
         setRNum(rNum === ratios.length - 1 ? 0 : rNum + 1);
     }
+
+    // CHANGE FILTERS
+    const changeFilters = (num) => {
+        setOpacity(0.12);
+        setCNum(num)
+    }
     
     // CAPTURE IMAGE
     var viewShot;
@@ -105,7 +118,8 @@ const Camera = () => {
                 navigation.navigate("Edit", {
                     url: uri,
                     ratio: ratios[rNum],
-                    color: overlayColors[cNum]
+                    color: overlayColors[cNum],
+                    opacity: opacity
                 })
             })
         }
@@ -177,52 +191,52 @@ const Camera = () => {
                                 buttonNegative: 'Cancel',
                             }}
                         />
-                        <View style={[styles.overlay,{ backgroundColor: overlayColors[cNum]}]}></View>
+                        <View style={[styles.overlay,{ backgroundColor: overlayColors[cNum], opacity: opacity}]}></View>
                     </ViewShot>
                     {
                         filterVisible ?
-                        <ScrollView 
-                            style={styles.filters}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                        >
-                            {/* {
-                                overlayColors.map(item => {
-                                    <TouchableOpacity style={styles.filter} onPress={()=>setCNum(0)}>   
-                                        <Image source={{uri:imagePath}} style={{width: "100%", height: "100%"}}/>
-                                        <View style={[styles.overlay, { backgroundColor: item  }]}></View>
-                                    </TouchableOpacity>
-                                })
-                            } */}
-                            <TouchableOpacity style={styles.filter} onPress={()=>setCNum(0)}>   
-                                <Image source={{uri:imagePath}} style={{width: "100%", height: "100%"}}/>
-                                <View style={[styles.overlay, { backgroundColor: "#fff"  }]}></View>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.filter} onPress={()=>setCNum(1)}>   
-                                <Image source={{uri:imagePath}} style={{width: "100%", height: "100%"}}/>
-                                <View style={[styles.overlay, { backgroundColor: "red" }]}></View>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.filter} onPress={()=>setCNum(2)}>   
-                                <Image source={{uri:imagePath}} style={{width: "100%", height: "100%" }}/>
-                                <View style={[styles.overlay, { backgroundColor: "green" }]}></View>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.filter} onPress={()=>setCNum(3)}>   
-                                <Image source={{uri:imagePath}} style={{width: "100%", height: "100%" }}/>
-                                <View style={[styles.overlay, { backgroundColor: "blue" }]}></View>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.filter} onPress={()=>setCNum(4)}>   
-                                <Image source={{uri:imagePath}} style={{width: "100%", height: "100%" }}/>
-                                <View style={[styles.overlay, { backgroundColor: "pink" }]}></View>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.filter} onPress={()=>setCNum(5)}>   
-                                <Image source={{uri:imagePath}} style={{width: "100%", height: "100%" }}/>
-                                <View style={[styles.overlay, { backgroundColor: "yellow" }]}></View>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.filter} onPress={()=>setCNum(6)}>   
-                                <Image source={{uri:imagePath}} style={{width: "100%", height: "100%" }}/>
-                                <View style={[styles.overlay, { backgroundColor: "brown" }]}></View>
-                            </TouchableOpacity>
-                        </ScrollView>
+                        <View style={styles.filtersContainer}>
+                            <Slider
+                                value={opacity}
+                                onValueChange={value => setOpacity(value)}
+                                step={0.02}
+                                style={styles.slider}
+                            />
+                            <ScrollView 
+                                style={styles.filters}
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                            >
+                                <TouchableOpacity style={styles.filter} onPress={()=>changeFilters(0)}>   
+                                    <Image source={{uri:imagePath}} style={{width: "100%", height: "100%"}}/>
+                                    <View style={[styles.overlay, { backgroundColor: "white"  }]}></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.filter} onPress={()=>changeFilters(1)}>   
+                                    <Image source={{uri:imagePath}} style={{width: "100%", height: "100%"}}/>
+                                    <View style={[styles.overlay, { backgroundColor: "red"}]}></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.filter} onPress={()=>changeFilters(2)}>   
+                                    <Image source={{uri:imagePath}} style={{width: "100%", height: "100%" }}/>
+                                    <View style={[styles.overlay, { backgroundColor: "green" }]}></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.filter} onPress={()=>changeFilters(3)}>   
+                                    <Image source={{uri:imagePath}} style={{width: "100%", height: "100%" }}/>
+                                    <View style={[styles.overlay, { backgroundColor: "blue" }]}></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.filter} onPress={()=>changeFilters(4)}>   
+                                    <Image source={{uri:imagePath}} style={{width: "100%", height: "100%" }}/>
+                                    <View style={[styles.overlay, { backgroundColor: "pink" }]}></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.filter} onPress={()=>changeFilters(5)}>   
+                                    <Image source={{uri:imagePath}} style={{width: "100%", height: "100%" }}/>
+                                    <View style={[styles.overlay, { backgroundColor: "yellow" }]}></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.filter} onPress={()=>changeFilters(6)}>   
+                                    <Image source={{uri:imagePath}} style={{width: "100%", height: "100%" }}/>
+                                    <View style={[styles.overlay, { backgroundColor: "brown" }]}></View>
+                                </TouchableOpacity>
+                            </ScrollView>
+                        </View>
                         : null
                     }
             </View>
@@ -282,12 +296,23 @@ const styles = EStyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    filters: {
+    slider: {
+        marginHorizontal: "3rem"
+    },
+    filtersContainer: {
         position: "absolute",
         width: "100%",
-        height: "25rem",
+        height: "35rem",
         marginBottom: "3rem",
         bottom: 0,
+        // flexDirection: "row"
+    },
+    filters: {
+        // position: "absolute",
+        // width: "100%",
+        // height: "25rem",
+        // marginBottom: "3rem",
+        // bottom: 0,
         flexDirection: "row"
     },
     filter: {
